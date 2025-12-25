@@ -28,10 +28,10 @@ onMounted(async () => {
   try {
     const [cls, subjs] = await Promise.all([
       teacher.getClass(route.params.classId),
-      subjects.getAll()
+      teacher.getMySubjects()  // Only subjects teacher is teaching
     ])
     classData.value = cls
-    subjectsList.value = subjs.filter(s => s.level === 'primary')
+    subjectsList.value = subjs
     
     // Auto-select first subject
     if (subjectsList.value.length) {
@@ -73,10 +73,14 @@ function printReport() {
   window.print()
 }
 
-function exportCsv() {
+async function exportCsv() {
   if (!selectedSubject.value) return
-  const url = teacher.getExportCsvUrl(route.params.classId, selectedSubject.value)
-  window.open(url, '_blank')
+  try {
+    await teacher.exportCsv(route.params.classId, selectedSubject.value)
+  } catch (e) {
+    console.error('Export failed:', e)
+    alert('Export gagal')
+  }
 }
 
 function goBack() {

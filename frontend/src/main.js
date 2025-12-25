@@ -11,6 +11,7 @@ import TpInput from './views/TpInput.vue'
 import Progress from './views/Progress.vue'
 import StudentDetail from './views/StudentDetail.vue'
 import Profile from './views/Profile.vue'
+import Schedule from './views/Schedule.vue'
 
 // Router
 const router = createRouter({
@@ -24,6 +25,7 @@ const router = createRouter({
     { path: '/class/:classId/student/:studentId', name: 'StudentDetail', component: StudentDetail, meta: { auth: true } },
     { path: '/tp-input', name: 'TpInput', component: TpInput, meta: { auth: true } },
     { path: '/profile', name: 'Profile', component: Profile, meta: { auth: true } },
+    { path: '/schedule', name: 'Schedule', component: Schedule, meta: { auth: true } },
   ]
 })
 

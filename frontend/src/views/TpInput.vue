@@ -48,7 +48,21 @@ onMounted(async () => {
       subjects.getAll()
     ])
     classes.value = classData
-    subjectsList.value = subjectData.filter(s => s.level === 'primary') // Filter for now
+    subjectsList.value = subjectData.filter(s => s.level === 'primary')
+    
+    // Auto-populate from current schedule
+    try {
+      const currentSchedule = await teacher.getCurrentSchedule()
+      if (currentSchedule) {
+        selectedClass.value = currentSchedule.class_id
+        selectedSubject.value = currentSchedule.subject_id
+        // Show toast notification
+        toast.value = `📅 ${currentSchedule.class_name} - ${currentSchedule.subject_name}`
+        setTimeout(() => toast.value = '', 3000)
+      }
+    } catch (e) {
+      // No current schedule, that's okay
+    }
   } catch (e) {
     console.error(e)
   } finally {

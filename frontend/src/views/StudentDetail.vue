@@ -30,8 +30,8 @@ function getTpStyle(tp) {
 
 onMounted(async () => {
   try {
-    const subjs = await subjects.getAll()
-    subjectsList.value = subjs.filter(s => s.level === 'primary')
+    const subjs = await teacher.getMySubjects()
+    subjectsList.value = subjs
     
     // Auto-select first subject
     if (subjectsList.value.length) {

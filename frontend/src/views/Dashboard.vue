@@ -54,6 +54,10 @@ function goToTpInput() {
 function goToProfile() {
   router.push('/profile')
 }
+
+function goToSchedule() {
+  router.push('/schedule')
+}
 </script>
 
 <template>
@@ -80,6 +84,9 @@ function goToProfile() {
             <strong>Isi TP Sekarang</strong>
             <small>Satu tap satu penilaian</small>
           </span>
+        </button>
+        <button @click="goToSchedule" class="schedule-btn">
+          📅 Jadual Mengajar
         </button>
       </div>
       
@@ -183,6 +190,25 @@ function goToProfile() {
 
 .quick-action {
   margin: 2rem 0;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.schedule-btn {
+  padding: 1rem 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  color: var(--text);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.schedule-btn:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
 }
 
 .btn-hero {

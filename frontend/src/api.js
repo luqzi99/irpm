@@ -106,6 +106,35 @@ export const teacher = {
     return request('/teacher/today-classes')
   },
   
+  // Schedules
+  async getSchedules() {
+    return request('/teacher/schedules')
+  },
+  
+  async createSchedule(classId, subjectId, dayOfWeek, startTime) {
+    return request('/teacher/schedules', {
+      method: 'POST',
+      body: JSON.stringify({
+        class_id: classId,
+        subject_id: subjectId,
+        day_of_week: dayOfWeek,
+        start_time: startTime,
+      }),
+    })
+  },
+  
+  async deleteSchedule(id) {
+    return request(`/teacher/schedules/${id}`, { method: 'DELETE' })
+  },
+  
+  async getCurrentSchedule() {
+    return request('/teacher/schedules/current')
+  },
+  
+  async getMySubjects() {
+    return request('/teacher/schedules/my-subjects')
+  },
+  
   // Students
   async getStudents(classId) {
     return request(`/teacher/classes/${classId}/students`)
@@ -153,9 +182,36 @@ export const teacher = {
     return request(`/teacher/classes/${classId}/report?subject_id=${subjectId}`)
   },
   
-  getExportCsvUrl(classId, subjectId) {
-    const token = getToken()
-    return `http://localhost:8000/api/teacher/classes/${classId}/export-csv?subject_id=${subjectId}&token=${token}`
+  async exportCsv(classId, subjectId) {
+    const token = localStorage.getItem('token')
+    const response = await fetch(`http://localhost:8000/api/teacher/classes/${classId}/export-csv?subject_id=${subjectId}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    })
+    
+    if (!response.ok) {
+      throw new Error('Export gagal')
+    }
+    
+    // Get filename from header or generate
+    const disposition = response.headers.get('Content-Disposition')
+    let filename = 'laporan.csv'
+    if (disposition) {
+      const match = disposition.match(/filename="(.+)"/)
+      if (match) filename = match[1]
+    }
+    
+    // Download blob
+    const blob = await response.blob()
+    const url = window.URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = filename
+    document.body.appendChild(a)
+    a.click()
+    window.URL.revokeObjectURL(url)
+    a.remove()
   },
   
   async getStudentProgress(studentId, subjectId) {

@@ -9,6 +9,7 @@ use App\Http\Controllers\Teacher\EvaluationController;
 use App\Http\Controllers\Teacher\ProgressController;
 use App\Http\Controllers\Teacher\ReportController;
 use App\Http\Controllers\Teacher\StudentProgressController;
+use App\Http\Controllers\Teacher\ScheduleController;
 use App\Http\Controllers\Admin\SubjectController;
 
 /*
@@ -51,6 +52,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/classes/{class}', [ClassController::class, 'update']);
         Route::delete('/classes/{class}', [ClassController::class, 'destroy']);
         Route::get('/today-classes', [ClassController::class, 'today']);
+        
+        // Schedules
+        Route::get('/schedules', [ScheduleController::class, 'index']);
+        Route::post('/schedules', [ScheduleController::class, 'store']);
+        Route::delete('/schedules/{schedule}', [ScheduleController::class, 'destroy']);
+        Route::get('/schedules/current', [ScheduleController::class, 'current']);
+        Route::get('/schedules/my-subjects', [ScheduleController::class, 'mySubjects']);
         
         // Students (nested under class)
         Route::get('/classes/{class}/students', [StudentController::class, 'index']);
