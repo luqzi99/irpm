@@ -10,7 +10,9 @@ use App\Http\Controllers\Teacher\ProgressController;
 use App\Http\Controllers\Teacher\ReportController;
 use App\Http\Controllers\Teacher\StudentProgressController;
 use App\Http\Controllers\Teacher\ScheduleController;
+use App\Http\Controllers\Teacher\ExcelReportController;
 use App\Http\Controllers\Admin\SubjectController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +34,14 @@ Route::get('/health', function () {
 Route::prefix('auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/verify-email', [AuthController::class, 'verifyEmail']);
+    Route::post('/resend-verification', [AuthController::class, 'resendVerification']);
+    Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
+    Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 });
+
+// Excel export - outside auth middleware (handles token manually for browser download)
+Route::get('/teacher/classes/{class}/export-excel', [ExcelReportController::class, 'download']);
 
 // Protected routes
 Route::middleware('auth:sanctum')->group(function () {
@@ -56,6 +65,7 @@ Route::middleware('auth:sanctum')->group(function () {
         // Schedules
         Route::get('/schedules', [ScheduleController::class, 'index']);
         Route::post('/schedules', [ScheduleController::class, 'store']);
+        Route::put('/schedules/{schedule}', [ScheduleController::class, 'update']);
         Route::delete('/schedules/{schedule}', [ScheduleController::class, 'destroy']);
         Route::get('/schedules/current', [ScheduleController::class, 'current']);
         Route::get('/schedules/my-subjects', [ScheduleController::class, 'mySubjects']);
@@ -80,6 +90,7 @@ Route::middleware('auth:sanctum')->group(function () {
         // Reports
         Route::get('/classes/{class}/report', [ReportController::class, 'classReport']);
         Route::get('/classes/{class}/export-csv', [ReportController::class, 'exportCsv']);
+        // Note: export-excel is outside auth middleware (handles token manually for download)
         
         // Student Progress (individual student detail)
         Route::get('/students/{student}/progress', [StudentProgressController::class, 'show']);
@@ -92,6 +103,27 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // ============ ADMIN ROUTES ============
     Route::prefix('admin')->middleware('can:admin')->group(function () {
-        // More admin routes to be added
+        // User management
+        Route::get('/users', [AdminUserController::class, 'index']);
+        Route::get('/users/stats', [AdminUserController::class, 'stats']);
+        Route::get('/users/{user}', [AdminUserController::class, 'show']);
+        Route::put('/users/{user}/subscription', [AdminUserController::class, 'updateSubscription']);
+        Route::post('/users/{user}/toggle-active', [AdminUserController::class, 'toggleActive']);
+        
+        // DSKP management
+        Route::get('/dskp/levels', [\App\Http\Controllers\Admin\DskpController::class, 'levels']);
+        Route::get('/dskp/levels/{level}/subjects', [\App\Http\Controllers\Admin\DskpController::class, 'subjects']);
+        Route::get('/dskp/subjects/{subject}', [\App\Http\Controllers\Admin\DskpController::class, 'subjectDetail']);
+        Route::post('/dskp/subjects', [\App\Http\Controllers\Admin\DskpController::class, 'storeSubject']);
+        Route::delete('/dskp/subjects/{subject}', [\App\Http\Controllers\Admin\DskpController::class, 'deleteSubject']);
+        Route::post('/dskp/topics', [\App\Http\Controllers\Admin\DskpController::class, 'storeTopic']);
+        Route::put('/dskp/topics/{topic}', [\App\Http\Controllers\Admin\DskpController::class, 'updateTopic']);
+        Route::delete('/dskp/topics/{topic}', [\App\Http\Controllers\Admin\DskpController::class, 'deleteTopic']);
+        Route::post('/dskp/subtopics', [\App\Http\Controllers\Admin\DskpController::class, 'storeSubtopic']);
+        Route::put('/dskp/subtopics/{subtopic}', [\App\Http\Controllers\Admin\DskpController::class, 'updateSubtopic']);
+        Route::delete('/dskp/subtopics/{subtopic}', [\App\Http\Controllers\Admin\DskpController::class, 'deleteSubtopic']);
+        Route::post('/dskp/preview', [\App\Http\Controllers\Admin\DskpController::class, 'previewCsv']);
+        Route::post('/dskp/import', [\App\Http\Controllers\Admin\DskpController::class, 'importCsv']);
+        Route::get('/dskp/template', [\App\Http\Controllers\Admin\DskpController::class, 'downloadTemplate']);
     });
 });

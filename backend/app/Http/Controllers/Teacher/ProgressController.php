@@ -50,6 +50,8 @@ class ProgressController extends Controller
             ->get()
             ->groupBy('student_id');
 
+        $totalSubtopics = count($subtopics);
+
         // Build students array with evaluations keyed by subtopic_id
         $studentsData = [];
         foreach ($students as $student) {
@@ -57,21 +59,39 @@ class ProgressController extends Controller
             
             // Key evaluations by subtopic_id for easy lookup
             $evalsBySubtopic = [];
+            $tpSum = 0;
+            $evalCount = 0;
+            
             foreach ($studentEvals as $eval) {
                 // Keep the latest evaluation per subtopic
                 if (!isset($evalsBySubtopic[$eval->subtopic_id]) || 
                     $eval->evaluation_date > $evalsBySubtopic[$eval->subtopic_id]['date']) {
+                    // If updating, subtract old value first
+                    if (isset($evalsBySubtopic[$eval->subtopic_id])) {
+                        $tpSum -= $evalsBySubtopic[$eval->subtopic_id]['tp'];
+                    } else {
+                        $evalCount++;
+                    }
                     $evalsBySubtopic[$eval->subtopic_id] = [
                         'tp' => $eval->tp,
                         'date' => $eval->evaluation_date,
                     ];
+                    $tpSum += $eval->tp;
                 }
             }
+
+            // Calculate per-student stats (round to integer - 1.5+ rounds up)
+            $averageTp = $evalCount > 0 ? (int) round($tpSum / $evalCount) : null;
+            $completionPercentage = $totalSubtopics > 0 ? round(($evalCount / $totalSubtopics) * 100) : 0;
 
             $studentsData[] = [
                 'id' => $student->id,
                 'name' => $student->name,
                 'evaluations' => $evalsBySubtopic,
+                'average_tp' => $averageTp,
+                'completion_percentage' => $completionPercentage,
+                'evaluated_count' => $evalCount,
+                'total_subtopics' => $totalSubtopics,
             ];
         }
 

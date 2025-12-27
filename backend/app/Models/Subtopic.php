@@ -16,10 +16,14 @@ class Subtopic extends Model
         'code',
         'description',
         'sequence',
+        'tp_descriptions',
+        'tp_max',
     ];
 
     protected $casts = [
         'sequence' => 'integer',
+        'tp_descriptions' => 'array',
+        'tp_max' => 'integer',
     ];
 
     // Relationships

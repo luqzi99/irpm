@@ -16,11 +16,13 @@ class TeachingSchedule extends Model
         'subject_id',
         'day_of_week',
         'start_time',
+        'end_time',
     ];
 
     protected $casts = [
         'day_of_week' => 'integer',
         'start_time' => 'datetime:H:i',
+        'end_time' => 'datetime:H:i',
     ];
 
     // Relationships

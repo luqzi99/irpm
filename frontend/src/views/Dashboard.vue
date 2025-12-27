@@ -58,6 +58,10 @@ function goToProfile() {
 function goToSchedule() {
   router.push('/schedule')
 }
+
+function goToAdmin() {
+  router.push('/admin')
+}
 </script>
 
 <template>
@@ -87,6 +91,9 @@ function goToSchedule() {
         </button>
         <button @click="goToSchedule" class="schedule-btn">
           📅 Jadual Mengajar
+        </button>
+        <button v-if="user?.role === 'admin'" @click="goToAdmin" class="admin-btn">
+          👑 Panel Admin
         </button>
       </div>
       
@@ -209,6 +216,23 @@ function goToSchedule() {
 .schedule-btn:hover {
   border-color: var(--primary);
   transform: translateY(-2px);
+}
+
+.admin-btn {
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  border: none;
+  border-radius: 1rem;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.admin-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(245, 158, 11, 0.4);
 }
 
 .btn-hero {

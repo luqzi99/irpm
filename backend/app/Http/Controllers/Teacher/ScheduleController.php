@@ -24,6 +24,7 @@ class ScheduleController extends Controller
                 'day_of_week' => $s->day_of_week,
                 'day_name' => $s->day_name,
                 'start_time' => $s->start_time->format('H:i'),
+                'end_time' => $s->end_time?->format('H:i'),
                 'class_id' => $s->class_id,
                 'class_name' => $s->classRoom->name,
                 'subject_id' => $s->subject_id,
@@ -38,19 +39,32 @@ class ScheduleController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
+        $user = $request->user();
+        
+        // Check subscription limit
+        if (!$user->canCreateSchedule()) {
+            $limits = $user->getPlanLimits();
+            return response()->json([
+                'message' => "Had jadual dicapai ({$limits['schedules']} jadual). Sila naik taraf langganan.",
+                'subscription_limit' => true,
+            ], 403);
+        }
+
         $request->validate([
             'class_id' => 'required|exists:classes,id',
             'subject_id' => 'required|exists:subjects,id',
             'day_of_week' => 'required|integer|min:1|max:7',
             'start_time' => 'required|date_format:H:i',
+            'end_time' => 'nullable|date_format:H:i',
         ]);
 
         $schedule = TeachingSchedule::create([
-            'teacher_id' => $request->user()->id,
+            'teacher_id' => $user->id,
             'class_id' => $request->class_id,
             'subject_id' => $request->subject_id,
             'day_of_week' => $request->day_of_week,
             'start_time' => $request->start_time,
+            'end_time' => $request->end_time,
         ]);
 
         $schedule->load(['classRoom', 'subject']);
@@ -60,11 +74,45 @@ class ScheduleController extends Controller
             'day_of_week' => $schedule->day_of_week,
             'day_name' => $schedule->day_name,
             'start_time' => $schedule->start_time->format('H:i'),
+            'end_time' => $schedule->end_time?->format('H:i'),
             'class_id' => $schedule->class_id,
             'class_name' => $schedule->classRoom->name,
             'subject_id' => $schedule->subject_id,
             'subject_name' => $schedule->subject->name,
         ], 201);
+    }
+
+    /**
+     * Update a teaching schedule
+     */
+    public function update(Request $request, TeachingSchedule $schedule): JsonResponse
+    {
+        if ($schedule->teacher_id !== $request->user()->id) {
+            return response()->json(['message' => 'Tidak dibenarkan.'], 403);
+        }
+
+        $request->validate([
+            'class_id' => 'sometimes|exists:classes,id',
+            'subject_id' => 'sometimes|exists:subjects,id',
+            'day_of_week' => 'sometimes|integer|min:1|max:7',
+            'start_time' => 'sometimes|date_format:H:i',
+            'end_time' => 'nullable|date_format:H:i',
+        ]);
+
+        $schedule->update($request->only(['class_id', 'subject_id', 'day_of_week', 'start_time', 'end_time']));
+        $schedule->load(['classRoom', 'subject']);
+
+        return response()->json([
+            'id' => $schedule->id,
+            'day_of_week' => $schedule->day_of_week,
+            'day_name' => $schedule->day_name,
+            'start_time' => $schedule->start_time->format('H:i'),
+            'end_time' => $schedule->end_time?->format('H:i'),
+            'class_id' => $schedule->class_id,
+            'class_name' => $schedule->classRoom->name,
+            'subject_id' => $schedule->subject_id,
+            'subject_name' => $schedule->subject->name,
+        ]);
     }
 
     /**
@@ -83,7 +131,7 @@ class ScheduleController extends Controller
 
     /**
      * Get current class based on day and time
-     * Returns the schedule entry that matches current day and is closest to current time
+     * Returns the schedule entry that matches current day and time window
      */
     public function current(Request $request): JsonResponse
     {
@@ -102,27 +150,36 @@ class ScheduleController extends Controller
             return response()->json(null);
         }
 
-        // Find the current or most recent class (within 2 hours)
         $currentSchedule = null;
+        
+        // Find schedule where current time falls within start-end range
         foreach ($todaySchedules as $schedule) {
-            $scheduleTime = $schedule->start_time->format('H:i');
+            $startTime = $schedule->start_time->format('H:i');
+            $endTime = $schedule->end_time?->format('H:i');
             
-            // Check if this class is currently happening or just finished (within 2 hours)
-            $scheduleCarbon = $now->copy()->setTimeFromTimeString($scheduleTime);
-            $diffMinutes = $now->diffInMinutes($scheduleCarbon, false);
-            
-            // Class started up to 2 hours ago or starts within 30 minutes
-            if ($diffMinutes >= -120 && $diffMinutes <= 30) {
-                $currentSchedule = $schedule;
-                break;
+            // If has end_time, check if current time is within range
+            if ($endTime) {
+                if ($currentTime >= $startTime && $currentTime <= $endTime) {
+                    $currentSchedule = $schedule;
+                    break;
+                }
+            } else {
+                // No end_time: check if within 2 hours of start
+                $scheduleCarbon = $now->copy()->setTimeFromTimeString($startTime);
+                $diffMinutes = $now->diffInMinutes($scheduleCarbon, false);
+                
+                if ($diffMinutes >= -120 && $diffMinutes <= 30) {
+                    $currentSchedule = $schedule;
+                    break;
+                }
             }
         }
 
+        // Fallback: get the nearest upcoming class
         if (!$currentSchedule) {
-            // Fallback: get the nearest upcoming class
             foreach ($todaySchedules as $schedule) {
-                $scheduleTime = $schedule->start_time->format('H:i');
-                if ($scheduleTime >= $currentTime) {
+                $startTime = $schedule->start_time->format('H:i');
+                if ($startTime >= $currentTime) {
                     $currentSchedule = $schedule;
                     break;
                 }
@@ -140,6 +197,7 @@ class ScheduleController extends Controller
             'subject_id' => $currentSchedule->subject_id,
             'subject_name' => $currentSchedule->subject->name,
             'start_time' => $currentSchedule->start_time->format('H:i'),
+            'end_time' => $currentSchedule->end_time?->format('H:i'),
         ]);
     }
 

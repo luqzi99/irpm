@@ -83,6 +83,16 @@ async function exportCsv() {
   }
 }
 
+function exportExcel() {
+  if (!selectedSubject.value) return
+  
+  const token = localStorage.getItem('token')
+  const url = `${import.meta.env.VITE_API_URL || 'http://localhost:8000/api'}/teacher/classes/${route.params.classId}/export-excel?subject_id=${selectedSubject.value}&token=${token}`
+  
+  // Use direct navigation - bypasses CORS and triggers immediate download
+  window.location.href = url
+}
+
 function goBack() {
   router.push('/dashboard')
 }
@@ -115,7 +125,7 @@ const completion = computed(() => {
       <button @click="goBack" class="btn btn-secondary">← Kembali</button>
       <h1 v-if="classData">📊 {{ classData.name }}</h1>
       <div class="header-actions">
-        <button @click="exportCsv" class="btn btn-secondary" title="Download Excel">📥 Excel</button>
+        <button @click="exportExcel" class="btn btn-secondary" title="Download Excel">📥 Excel</button>
         <button @click="printReport" class="btn btn-secondary" title="Cetak Laporan">🖨️ Cetak</button>
         <button @click="goToTpInput" class="btn btn-primary">📝 Isi TP</button>
       </div>
@@ -173,45 +183,48 @@ const completion = computed(() => {
           </div>
         </div>
         
-        <!-- Progress Grid -->
-        <div class="grid-container" v-if="progressData && progressData.students?.length">
-          <div class="grid-wrapper">
-            <table class="progress-grid">
-              <thead>
-                <tr>
-                  <th class="student-header">Murid</th>
-                  <th 
-                    v-for="subtopic in progressData.subtopics" 
-                    :key="subtopic.id"
-                    class="subtopic-header"
-                    :title="subtopic.description"
+        <!-- Student Progress List -->
+        <div class="student-list" v-if="progressData && progressData.students?.length">
+          <table class="progress-table">
+            <thead>
+              <tr>
+                <th class="name-col">Murid</th>
+                <th class="tp-col">TP Purata</th>
+                <th class="progress-col">Kemajuan</th>
+                <th class="action-col">Tindakan</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="student in progressData.students" :key="student.id">
+                <td class="name-cell">
+                  <span class="student-icon">👤</span>
+                  {{ student.name }}
+                </td>
+                <td class="tp-cell">
+                  <div 
+                    class="tp-badge"
+                    :style="{ background: tpColors[student.average_tp] }"
                   >
-                    {{ subtopic.code }}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="student in progressData.students" :key="student.id">
-                  <td class="student-name" @click="goToStudent(student.id)">
-                    <span class="student-link">👤 {{ student.name }}</span>
-                  </td>
-                  <td 
-                    v-for="subtopic in progressData.subtopics" 
-                    :key="subtopic.id"
-                    class="tp-cell"
-                  >
+                    {{ student.average_tp ? `TP${student.average_tp}` : '-' }}
+                  </div>
+                </td>
+                <td class="progress-cell">
+                  <div class="progress-bar-container">
                     <div 
-                      class="tp-box"
-                      :style="{ background: tpColors[student.evaluations[subtopic.id]?.tp] }"
-                      :title="`${student.name}: TP${student.evaluations[subtopic.id]?.tp || '-'}`"
-                    >
-                      {{ student.evaluations[subtopic.id]?.tp || '' }}
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+                      class="progress-bar-fill" 
+                      :style="{ width: (student.completion_percentage || 0) + '%' }"
+                    ></div>
+                    <span class="progress-text">{{ student.completion_percentage || 0 }}%</span>
+                  </div>
+                </td>
+                <td class="action-cell">
+                  <button @click="goToStudent(student.id)" class="btn btn-sm btn-secondary">
+                    📋 Lihat
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         
         <div v-else-if="!loading" class="empty-state">
@@ -321,88 +334,103 @@ const completion = computed(() => {
   border-radius: 4px;
 }
 
-.grid-container {
+/* Progress Table Styles */
+.student-list {
   background: var(--bg-card);
   border-radius: 1rem;
   overflow: hidden;
 }
 
-.grid-wrapper {
-  overflow-x: auto;
-}
-
-.progress-grid {
+.progress-table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 600px;
 }
 
-.progress-grid th,
-.progress-grid td {
-  padding: 0.5rem;
+.progress-table th,
+.progress-table td {
+  padding: 1rem;
   border-bottom: 1px solid var(--border);
-}
-
-.student-header {
   text-align: left;
+}
+
+.progress-table th {
+  background: var(--bg-hover);
   font-weight: 600;
-  padding-left: 1rem;
-  position: sticky;
-  left: 0;
-  background: var(--bg-card);
-  z-index: 1;
-}
-
-.subtopic-header {
-  font-size: 0.75rem;
-  font-weight: 500;
   color: var(--text-muted);
-  text-align: center;
-  min-width: 50px;
-  cursor: help;
+  font-size: 0.875rem;
 }
 
-.student-name {
+.name-col { width: 35%; }
+.tp-col { width: 15%; text-align: center; }
+.progress-col { width: 35%; }
+.action-col { width: 15%; text-align: center; }
+
+.name-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-weight: 500;
-  padding-left: 1rem;
-  white-space: nowrap;
-  position: sticky;
-  left: 0;
-  background: var(--bg-card);
-  z-index: 1;
-  cursor: pointer;
 }
 
-.student-link {
-  transition: color 0.2s;
-}
-
-.student-name:hover .student-link {
-  color: var(--primary);
+.student-icon {
+  font-size: 1.25rem;
 }
 
 .tp-cell {
   text-align: center;
-  padding: 0.25rem;
 }
 
-.tp-box {
-  width: 36px;
-  height: 36px;
-  border-radius: 6px;
-  display: flex;
+.tp-badge {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.875rem;
-  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 700;
   color: white;
-  margin: 0 auto;
-  cursor: pointer;
-  transition: transform 0.15s;
+  min-width: 60px;
+  font-size: 0.875rem;
 }
 
-.tp-box:hover {
-  transform: scale(1.1);
+.progress-cell {
+  padding-right: 1rem;
+}
+
+.progress-bar-container {
+  position: relative;
+  height: 24px;
+  background: var(--bg-hover);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.action-cell {
+  text-align: center;
+}
+
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.progress-table tbody tr:hover {
+  background: var(--bg-hover);
 }
 
 .empty-state {

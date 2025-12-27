@@ -41,27 +41,54 @@ const selectionSummary = computed(() => {
 })
 
 // Load initial data
+const hasSchedule = ref(false)
+const noScheduleSetup = ref(false) // True if user has NO schedules at all
+
 onMounted(async () => {
   try {
+    // First check if teacher has ANY schedules set up
+    const allSchedules = await teacher.getSchedules()
+    
+    if (!allSchedules || allSchedules.length === 0) {
+      // No schedules set up at all
+      noScheduleSetup.value = true
+      loading.value = false
+      return
+    }
+    
+    // Extract unique class and subject IDs from schedules
+    const scheduledClassIds = [...new Set(allSchedules.map(s => s.class_id))]
+    const scheduledSubjectIds = [...new Set(allSchedules.map(s => s.subject_id))]
+    
+    // Has schedules - always allow input (load class/subject data)
+    hasSchedule.value = true
+    
     const [classData, subjectData] = await Promise.all([
       teacher.getClasses(),
       subjects.getAll()
     ])
-    classes.value = classData
-    subjectsList.value = subjectData.filter(s => s.level === 'primary')
     
-    // Auto-populate from current schedule
+    // Filter to only show classes and subjects from jadual
+    classes.value = classData.filter(c => scheduledClassIds.includes(c.id))
+    subjectsList.value = subjectData.filter(s => scheduledSubjectIds.includes(s.id))
+    
+    // Try to auto-populate from current schedule (if within scheduled time)
     try {
       const currentSchedule = await teacher.getCurrentSchedule()
-      if (currentSchedule) {
+      if (currentSchedule && currentSchedule.class_id && currentSchedule.subject_id) {
+        // Auto-populate from current schedule
         selectedClass.value = currentSchedule.class_id
         selectedSubject.value = currentSchedule.subject_id
-        // Show toast notification
-        toast.value = `📅 ${currentSchedule.class_name} - ${currentSchedule.subject_name}`
-        setTimeout(() => toast.value = '', 3000)
+        
+        // Only show toast if we have valid class_name and subject_name
+        if (currentSchedule.class_name && currentSchedule.subject_name) {
+          toast.value = `📅 Auto: ${currentSchedule.class_name} - ${currentSchedule.subject_name}`
+          setTimeout(() => toast.value = '', 3000)
+        }
       }
+      // If no current schedule, just let user select manually - no message needed
     } catch (e) {
-      // No current schedule, that's okay
+      // No current schedule slot - user can still select manually
     }
   } catch (e) {
     console.error(e)
@@ -234,16 +261,16 @@ function toggleSelectors() {
         
         <div class="selector-row" v-if="topics.length">
           <select v-model="selectedTopic">
-            <option :value="null" disabled>Pilih Topik</option>
+            <option :value="null" disabled>Pilih Topik (SK)</option>
             <option v-for="t in topics" :key="t.id" :value="t.id">
-              {{ t.sequence }}. {{ t.title }}
+              {{ t.standard_kandungan }} - {{ t.title }}
             </option>
           </select>
           
           <select v-model="selectedSubtopic" v-if="subtopicsList.length">
-            <option :value="null" disabled>Pilih Standard Pembelajaran</option>
+            <option :value="null" disabled>Pilih Standard Pembelajaran (SP)</option>
             <option v-for="st in subtopicsList" :key="st.id" :value="st.id">
-              {{ st.code }} - {{ st.description.substring(0, 50) }}...
+              {{ st.code }} - {{ st.description?.substring(0, 40) }}{{ st.description?.length > 40 ? '...' : '' }}
             </option>
           </select>
         </div>
@@ -254,6 +281,17 @@ function toggleSelectors() {
     <main class="student-list">
       <div v-if="loading" class="loading">
         <div class="spinner"></div>
+      </div>
+      
+      <!-- No schedule set up at all -->
+      <div v-else-if="noScheduleSetup" class="empty-state setup-required">
+        <div class="icon">⚙️</div>
+        <h3>Sila Tetapkan Jadual Kelas Dahulu</h3>
+        <p>Anda belum mempunyai jadual mengajar. Sila tetapkan jadual kelas anda terlebih dahulu sebelum mengisi TP.</p>
+        <div class="action-buttons">
+          <button @click="$router.push('/schedule')" class="btn btn-primary">📅 Tetapkan Jadual</button>
+          <button @click="goBack" class="btn btn-secondary">← Kembali</button>
+        </div>
       </div>
       
       <div v-else-if="!selectedSubtopic" class="empty-state">
@@ -444,6 +482,49 @@ function toggleSelectors() {
 
 .empty-state p {
   font-size: 1.25rem;
+}
+
+.empty-state.no-schedule {
+  padding: 3rem 2rem;
+}
+
+.empty-state.no-schedule .icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.empty-state.no-schedule h3 {
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.empty-state.no-schedule .btn {
+  margin-top: 1.5rem;
+}
+
+.empty-state.setup-required {
+  padding: 3rem 2rem;
+  background: rgba(99, 102, 241, 0.1);
+  border: 2px dashed var(--primary);
+  border-radius: 1rem;
+  margin: 2rem;
+}
+
+.empty-state.setup-required .icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.empty-state.setup-required h3 {
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
 }
 
 /* Mobile responsive */

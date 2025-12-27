@@ -13,6 +13,7 @@ class Topic extends Model
 
     protected $fillable = [
         'subject_id',
+        'section_id',
         'year',
         'theme',
         'title',
@@ -26,6 +27,11 @@ class Topic extends Model
     ];
 
     // Relationships
+    public function section(): BelongsTo
+    {
+        return $this->belongsTo(Section::class);
+    }
+
     public function subject(): BelongsTo
     {
         return $this->belongsTo(Subject::class);

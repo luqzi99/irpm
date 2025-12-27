@@ -1,0 +1,96 @@
+theme	title	topic (SK)	subtopic (SP)
+INKUIRI DALAM SAINS	1.0 KEMAHIRAN SAINTIFIK	1.1 Kemahiran Proses Sains	1.1.1 Memerhati dengan menggunakan semua deria yang terlibat dan alat jika perlu untuk membuat pemerhatian secara kualitatif bagi menerangkan fenomena atau perubahan yang berlaku.
+INKUIRI DALAM SAINS	1.0 KEMAHIRAN SAINTIFIK	1.1 Kemahiran Proses Sains	1.1.2 Mengelas dengan membandingkan atau mengenal pasti persamaan dan perbezaan berdasarkan ciri sepunya.
+INKUIRI DALAM SAINS	1.0 KEMAHIRAN SAINTIFIK	1.1 Kemahiran Proses Sains	1.1.3 Mengukur dan menggunakan nombor dengan menggunakan alat dan unit piawai dengan teknik yang betul.
+INKUIRI DALAM SAINS	1.0 KEMAHIRAN SAINTIFIK	1.1 Kemahiran Proses Sains	1.1.4 Membuat inferens dengan menyatakan kesimpulan awal atau penerangan yang munasabah bagi sesuatu pemerhatian dengan menggunakan maklumat yang diperoleh.
+INKUIRI DALAM SAINS	1.0 KEMAHIRAN SAINTIFIK	1.1 Kemahiran Proses Sains	1.1.5 Meramal dengan membuat jangkaan tentang sesuatu peristiwa atau fenomena berdasarkan pemerhatian, pengalaman lalu atau data.
+INKUIRI DALAM SAINS	1.0 KEMAHIRAN SAINTIFIK	1.1 Kemahiran Proses Sains	1.1.6 Berkomunikasi dengan merekod maklumat atau idea dalam bentuk yang sesuai dan mempersembahkan maklumat atau idea tersebut secara sistematik.
+INKUIRI DALAM SAINS	1.0 KEMAHIRAN SAINTIFIK	1.1 Kemahiran Proses Sains	1.1.7 Menggunakan perhubungan ruang dan masa dengan menyusun kejadian sesuatu fenomena atau peristiwa mengikut kronologi berdasarkan masa.
+INKUIRI DALAM SAINS	1.0 KEMAHIRAN SAINTIFIK	1.1 Kemahiran Proses Sains	1.1.8 Mentafsir data dengan memilih idea yang relevan tentang objek, peristiwa atau pola yang terdapat pada data untuk membuat penerangan.
+INKUIRI DALAM SAINS	1.0 KEMAHIRAN SAINTIFIK	1.1 Kemahiran Proses Sains	1.1.9 secara operasi dengan memerihalkan satu tafsiran tentang perkara yang dilakukan dan diperhatikan bagi sesuatu situasi mengikut aspek yang ditentukan.
+INKUIRI DALAM SAINS	1.0 KEMAHIRAN SAINTIFIK	1.1 Kemahiran Proses Sains	1.1.10 Mengawal pemboleh ubah dengan menentukan pemboleh ubah bergerak balas dan dimalarkan setelah pemboleh ubah dimanipulasi ditentukan dalam sesuatu penyiasatan.
+INKUIRI DALAM SAINS	1.0 KEMAHIRAN SAINTIFIK	1.1 Kemahiran Proses Sains	1.1.11 Membuat hipotesis dengan membuat pernyataan umum yang boleh diuji tentang hubungan antara pemboleh ubah dalam sesuatu penyiasatan.
+INKUIRI DALAM SAINS	1.0 KEMAHIRAN SAINTIFIK	1.1 Kemahiran Proses Sains	1.1.12 Mengeksperimen dengan menggunakan kemahiran proses sains asas bagi mengumpul dan mentafsir data serta membuat rumusan untuk membuktikan hipotesis dan membuat laporan.
+SAINS HAYAT	2.0 MANUSIA	2.1 Sistem Rangka Manusia	2.1.1 Memerihalkan fungsi rangka utama manusia.
+SAINS HAYAT	2.0 MANUSIA	2.1 Sistem Rangka Manusia	2.1.2 Mengenal pasti tulang dan kedudukan sendi dalam sistem rangka manusia.
+SAINS HAYAT	2.0 MANUSIA	2.1 Sistem Rangka Manusia	2.1.3 Menyatakan fungsi sendi dalam sistem rangka manusia.
+SAINS HAYAT	2.0 MANUSIA	2.1 Sistem Rangka Manusia	2.1.4 Menaakul kepentingan sistem rangka kepada tubuh manusia.
+SAINS HAYAT	2.0 MANUSIA	2.1 Sistem Rangka Manusia	2.1.5 Menjelaskan pemerhatian tentang sistem rangka manusia melalui lakaran, TMK, penulisan atau lisan secara kreatif.
+SAINS HAYAT	2.0 MANUSIA	2.2 Sistem Peredaran Darah Manusia	2.2.1 Memerihalkan fungsi bahagian utama yang terlibat dalam sistem peredaran darah manusia.
+SAINS HAYAT	2.0 MANUSIA	2.2 Sistem Peredaran Darah Manusia	2.2.2 Melakar laluan peredaran darah yang lebih oksigen dan laluan peredaran darah yang lebih karbon dioksida dalam tubuh manusia.
+SAINS HAYAT	2.0 MANUSIA	2.2 Sistem Peredaran Darah Manusia	2.2.3 Merumuskan kepentingan sistem peredaran darah kepada tubuh manusia.
+SAINS HAYAT	2.0 MANUSIA	2.2 Sistem Peredaran Darah Manusia	2.2.4 Menjelaskan pemerhatian tentang sistem peredaran darah manusia melalui lakaran, TMK, penulisan atau lisan secara kreatif.
+SAINS HAYAT	2.0 MANUSIA	2.3 Perkaitan antara Sistem dalam Tubuh Manusia	2.3.1 Menjelaskan melalui contoh perkaitan antara sistem dalam tubuh manusia.
+SAINS HAYAT	2.0 MANUSIA	2.3 Perkaitan antara Sistem dalam Tubuh Manusia	2.3.2 Menaakul kepentingan penjagaan semua sistem dalam tubuh manusia supaya berfungsi dengan sempurna.
+SAINS HAYAT	2.0 MANUSIA	2.3 Perkaitan antara Sistem dalam Tubuh Manusia	2.3.3 Menjana idea cara memelihara sistem dalam tubuh manusia bagi menjamin kehidupan yang sihat.
+SAINS HAYAT	2.0 MANUSIA	2.3 Perkaitan antara Sistem dalam Tubuh Manusia	2.3.4 Menjelaskan pemerhatian tentang perkaitan antara sistem dalam tubuh manusia melalui lakaran, TMK, penulisan atau lisan secara kreatif.
+SAINS HAYAT	3.0 Haiwan	3.1 Kemandirian Spesies Haiwan	3.1.1 Menyatakan maksud kemandirian spesies.
+SAINS HAYAT	3.0 Haiwan	3.1 Kemandirian Spesies Haiwan	3.1.2 Menjelas dengan contoh ciri dan tingkah laku khas haiwan untuk melindungi diri daripada musuh.
+SAINS HAYAT	3.0 Haiwan	3.1 Kemandirian Spesies Haiwan	3.1.3 Menjelas dengan contoh ciri dan tingkah laku khas haiwan untuk melindungi diri daripada cuaca melampau.
+SAINS HAYAT	3.0 Haiwan	3.1 Kemandirian Spesies Haiwan	3.1.4 Mengenal pasti cara haiwan melindungi telurnya.
+SAINS HAYAT	3.0 Haiwan	3.1 Kemandirian Spesies Haiwan	3.1.5 Mengenal pasti cara haiwan memastikan anaknya terus hidup.
+SAINS HAYAT	3.0 Haiwan	3.1 Kemandirian Spesies Haiwan	3.1.6 Menjelaskan pemerhatian tentang kemandirian spesies haiwan melalui lakaran, TMK, penulisan atau lisan secara kreatif.
+SAINS HAYAT	3.0 Haiwan	3.2 Mereka Cipta Model Haiwan	3.2.1 Mencipta model haiwan imaginasi yang boleh melindungi diri daripada musuh dan cuaca melampau.
+SAINS HAYAT	3.0 Haiwan	3.2 Mereka Cipta Model Haiwan	3.2.2 Menaakul ciri khas pada model haiwan imaginasi bagi melindungi diri daripada musuh dan cuaca melampau.
+SAINS HAYAT	3.0 Haiwan	3.2 Mereka Cipta Model Haiwan	3.2.3 Berkomunikasi tentang ciri khas haiwan bagi mengagumi ciptaan Tuhan dalam memastikan keseimbangan alam semula jadi.
+SAINS HAYAT	3.0 Haiwan	3.2 Mereka Cipta Model Haiwan	3.2.4 Menjelaskan pemerhatian tentang model haiwan imaginasi melalui lakaran, TMK, penulisan atau lisan secara kreatif.
+SAINS HAYAT	3.0 Haiwan	3.3 Hubungan Makanan antara Hidupan	3.3.1 Menyatakan maksud rantai makanan.
+SAINS HAYAT	3.0 Haiwan	3.3 Hubungan Makanan antara Hidupan	3.3.2 Mengenal pasti pengeluar dan pengguna dalam rantai makanan.
+SAINS HAYAT	3.0 Haiwan	3.3 Hubungan Makanan antara Hidupan	3.3.3 Merumus tentang hubungan makanan antara hidupan dengan proses fotosintesis dari aspek perpindahan tenaga berdasarkan rantai makanan.
+SAINS HAYAT	3.0 Haiwan	3.3 Hubungan Makanan antara Hidupan	3.3.4 Menyatakan maksud siratan makanan.
+SAINS HAYAT	3.0 Haiwan	3.3 Hubungan Makanan antara Hidupan	3.3.5 Membina siratan makanan di pelbagai habitat.
+SAINS HAYAT	3.0 Haiwan	3.3 Hubungan Makanan antara Hidupan	3.3.6 Meramalkan kesan terhadap hidupan lain jika berlaku perubahan populasi dalam siratan makanan suatu habitat.
+SAINS HAYAT	3.0 Haiwan	3.3 Hubungan Makanan antara Hidupan	3.3.7 Menjelaskan pemerhatian tentang hubungan makanan antara hidupan melalui lakaran, TMK, penulisan atau lisan secara kreatif.
+SAINS HAYAT	4.0 Tumbuhan	4.1 Kemandirian Spesies Tumbuhan	4.1.1 Menjelas dengan contoh ciri khas tumbuhan untuk melindungi diri daripada musuh.
+SAINS HAYAT	4.0 Tumbuhan	4.1 Kemandirian Spesies Tumbuhan	4.1.2 Menjelas dengan contoh ciri khas tumbuhan untuk menyesuaikan diri dengan iklim dan perubahan musim.
+SAINS HAYAT	4.0 Tumbuhan	4.1 Kemandirian Spesies Tumbuhan	4.1.3 Menjelaskan pemerhatian tentang kemandirian spesies tumbuhan melalui lakaran, TMK, penulisan atau lisan secara kreatif.
+SAINS HAYAT	4.0 Tumbuhan	4.2 Pencaran Biji Benih	4.2.1 Menyatakan cara tumbuhan memencarkan biji benih atau buah.
+SAINS HAYAT	4.0 Tumbuhan	4.2 Pencaran Biji Benih	4.2.2 Menghubungkait cara pencaran dengan ciri biji benih atau buah.
+SAINS HAYAT	4.0 Tumbuhan	4.2 Pencaran Biji Benih	4.2.3 Meramal cara pencaran bagi suatu biji benih berdasarkan ciri biji benih tersebut.
+SAINS HAYAT	4.0 Tumbuhan	4.2 Pencaran Biji Benih	4.2.4 Menjelaskan pemerhatian tentang pencaran biji benih melalui lakaran, TMK, penulisan atau lisan secara kreatif.
+SAINS FIZIKAL	5.0 Sifat Cahaya	5.1 Sumber Tenaga Elektrik	5.1.1 Menjelas dengan contoh sumber yang menghasilkan tenaga elektrik.
+SAINS FIZIKAL	5.0 Sifat Cahaya	5.2 Litar Bersiri dan Litar Selari	5.2.1 Mengenal pasti susunan mentol secara bersiri dan selari dalam litar elektrik lengkap.
+SAINS FIZIKAL	5.0 Sifat Cahaya	5.2 Litar Bersiri dan Litar Selari	5.2.2 Melakar rajah litar bersiri dan litar selari menggunakan simbol.
+SAINS FIZIKAL	5.0 Sifat Cahaya	5.2 Litar Bersiri dan Litar Selari	5.2.3 Membanding dan membezakan kecerahan mentol dalam litar bersiri dan litar selari.
+SAINS FIZIKAL	5.0 Sifat Cahaya	5.2 Litar Bersiri dan Litar Selari	5.2.4 Mengeksperimen untuk membezakan kecerahan mentol dalam litar bersiri atau selari dengan mengubah bilangan mentol.
+SAINS FIZIKAL	5.0 Sifat Cahaya	5.2 Litar Bersiri dan Litar Selari	5.2.5 Mengeksperimen untuk membezakan kecerahan mentol dalam litar bersiri atau selari dengan mengubah bilangan sel kering.
+SAINS FIZIKAL	5.0 Sifat Cahaya	5.2 Litar Bersiri dan Litar Selari	5.2.6 Menyatakan keadaan mentol apabila beberapa suis ditutup atau dibuka dalam litar bersiri dan litar selari dengan menjalankan aktiviti.
+SAINS FIZIKAL	5.0 Sifat Cahaya	5.2 Litar Bersiri dan Litar Selari	5.2.7 Menjelaskan pemerhatian tentang litar bersiri dan litar selari melalui lakaran, TMK, penulisan atau lisan secara kreatif.
+SAINS FIZIKAL	5.0 Sifat Cahaya	5.3 Keselamatan Pengendalian Peralatan dan Penjimatan Elektrik	5.3.1 Menjana idea faktor yang mempengaruhi penggunaan tenaga elektrik dengan menjalankan aktiviti.
+SAINS FIZIKAL	5.0 Sifat Cahaya	5.3 Keselamatan Pengendalian Peralatan dan Penjimatan Elektrik	5.3.2 Menjelas dengan contoh kesan kecuaian pengendalian peralatan elektrik.
+SAINS FIZIKAL	5.0 Sifat Cahaya	5.3 Keselamatan Pengendalian Peralatan dan Penjimatan Elektrik	5.3.3 Memerihalkan langkah keselamatan ketika mengendalikan peralatan elektrik.
+SAINS FIZIKAL	5.0 Sifat Cahaya	5.3 Keselamatan Pengendalian Peralatan dan Penjimatan Elektrik	5.3.4 Menjelaskan pemerhatian tentang keselamatan pengendalian peralatan dan penjimatan elektrik melalui lakaran, TMK, penulisan atau lisan secara kreatif.
+SAINS FIZIKAL	6.0 Bunyi	6.1 Haba dan Suhu	6.1.1 Menyatakan maksud haba dan suhu.
+SAINS FIZIKAL	6.0 Bunyi	6.1 Haba dan Suhu	6.1.2 Menyukat suhu dengan menggunakan alat dan unit piawai dengan teknik yang betul.
+SAINS FIZIKAL	6.0 Bunyi	6.1 Haba dan Suhu	6.1.3 Menggunakan perhubungan ruang dan masa untuk melihat perubahan suhu apabila ais dipanaskan dan menentukan takat beku dan takat didih air dengan menjalankan aktiviti.
+SAINS FIZIKAL	6.0 Bunyi	6.1 Haba dan Suhu	6.1.4 Memerihalkan perubahan suhu air apabila air panas disejukkan ke suhu bilik.
+SAINS FIZIKAL	6.0 Bunyi	6.1 Haba dan Suhu	6.1.5 Membuat kesimpulan tentang kesan ke atas bahan apabila menerima haba dan apabila kehilangan haba dengan menjalankan aktiviti.
+SAINS FIZIKAL	6.0 Bunyi	6.1 Haba dan Suhu	6.1.6 Menaakul kepentingan aplikasi prinsip pengembangan dan pengecutan bahan dalam kehidupan harian.
+SAINS FIZIKAL	6.0 Bunyi	6.1 Haba dan Suhu	6.1.7 Menjelaskan pemerhatian tentang haba dan suhu air melalui lakaran, TMK, penulisan atau lisan secara kreatif.
+SAINS FIZIKAL	7.0 Tenaga	7.1 Pengaratan Bahan	7.1.1 Menyatakan ciri objek yang berkarat.
+SAINS FIZIKAL	7.0 Tenaga	7.1 Pengaratan Bahan	7.1.2 Mengitlak bahawa objek yang diperbuat daripada besi boleh berkarat.
+SAINS FIZIKAL	7.0 Tenaga	7.1 Pengaratan Bahan	7.1.3 Mengeksperimen untuk menentukan faktor yang menyebabkan pengaratan.
+SAINS FIZIKAL	7.0 Tenaga	7.1 Pengaratan Bahan	7.1.4 Memerihalkan cara mencegah pengaratan.
+SAINS FIZIKAL	7.0 Tenaga	7.1 Pengaratan Bahan	7.1.5 Menaakul kepentingan mencegah pengaratan.
+SAINS FIZIKAL	7.0 Tenaga	7.1 Pengaratan Bahan	7.1.6 Menjelaskan pemerhatian tentang pengaratan bahan melalui lakaran, TMK, penulisan atau lisan secara kreatif.
+SAINS BAHAN	8.0 Bahan	8.1 Keadaan Jirim	8.1.1 Menyatakan jirim wujud dalam keadaan pepejal, cecair dan gas.
+SAINS BAHAN	8.0 Bahan	8.1 Keadaan Jirim	8.1.2 Mengelas bahan atau objek berdasarkan keadaan jirim.
+SAINS BAHAN	8.0 Bahan	8.1 Keadaan Jirim	8.1.3 Mencirikan sifat pepejal, cecair dan gas dengan menjalankan aktiviti.
+SAINS BAHAN	8.0 Bahan	8.1 Keadaan Jirim	8.1.4 Mengitlak bahawa air boleh wujud dalam tiga keadaan jirim dengan menjalankan aktiviti.
+SAINS BAHAN	8.0 Bahan	8.1 Keadaan Jirim	8.1.5 Menjelaskan pemerhatian tentang keadaan jirim melalui lakaran, TMK, penulisan atau lisan secara kreatif.
+SAINS BAHAN	8.0 Bahan	8.2 Perubahan Keadaan Jirim Bagi Air	8.2.1 Memerihalkan perubahan keadaan jirim bagi air dengan menjalankan aktiviti.
+SAINS BAHAN	8.0 Bahan	8.2 Perubahan Keadaan Jirim Bagi Air	8.2.2 Menjelas dengan contoh perubahan keadaan jirim berlaku apabila jirim menerima atau kehilangan haba dengan menjalankan aktiviti.
+SAINS BAHAN	8.0 Bahan	8.2 Perubahan Keadaan Jirim Bagi Air	8.2.3 Menghubung kait perubahan keadaan jirim bagi air dengan pembentukan awan dan hujan.
+SAINS BAHAN	8.0 Bahan	8.2 Perubahan Keadaan Jirim Bagi Air	8.2.4 Menjelaskan pemerhatian tentang perubahan keadaan jirim bagi air melalui lakaran, TMK, penulisan atau lisan secara kreatif.
+BUMI DAN SAINS ANGKASA	9.0 Bumi	9.1 Fasa Bulan	9.1.1 Menyatakan Bulan tidak mengeluarkan cahaya tetapi memantulkan cahaya Matahari.
+BUMI DAN SAINS ANGKASA	9.0 Bumi	9.1 Fasa Bulan	9.1.2 Memerihalkan Bulan berputar pada paksinya dan pada masa yang sama beredar mengelilingi Bumi dari aspek arah dan tempoh dengan menjalankan simulasi.
+BUMI DAN SAINS ANGKASA	9.0 Bumi	9.1 Fasa Bulan	9.1.3 Menggunakan perhubungan ruang dan masa untuk menggambarkan fasa Bulan dalam satu edaran lengkap mengikut takwim Qamari.
+BUMI DAN SAINS ANGKASA	9.0 Bumi	9.1 Fasa Bulan	9.1.4 Menjelaskan pemerhatian tentang fasa bulan melalui lakaran, TMK, penulisan atau lisan secara kreatif.
+BUMI DAN SAINS ANGKASA	9.0 Bumi	9.2 Buruj	9.2.1 Mengenal pasti buruj dan corak buruj.
+BUMI DAN SAINS ANGKASA	9.0 Bumi	9.2 Buruj	9.2.2 Menyatakan kegunaan buruj.
+BUMI DAN SAINS ANGKASA	9.0 Bumi	9.2 Buruj	9.2.3 Menjelaskan pemerhatian tentang buruj melalui lakaran, TMK, penulisan atau lisan secara kreatif.
+TEKNOLOGI DAN KEHIDUPAN LESTARI	10.0 Mesin	10.1 Penggunaan Alat dalam Kehidupan	10.1.1 Menyatakan kegunaan suatu alat yang terdapat di persekitaran murid.
+TEKNOLOGI DAN KEHIDUPAN LESTARI	10.0 Mesin	10.1 Penggunaan Alat dalam Kehidupan	10.1.2 Menerangkan kombinasi fungsi mesin ringkas pada suatu alat yang membolehkan alat tersebut berfungsi melalui pemerhatian alat sebenar.
+TEKNOLOGI DAN KEHIDUPAN LESTARI	10.0 Mesin	10.1 Penggunaan Alat dalam Kehidupan	10.1.3 Menaakul kepentingan kombinasi mesin ringkas untuk memastikan alat itu berfungsi dengan sempurna.
+TEKNOLOGI DAN KEHIDUPAN LESTARI	10.0 Mesin	10.1 Penggunaan Alat dalam Kehidupan	10.1.4 Menjana idea tentang kepentingan ciri penciptaan alat yang lestari.
+TEKNOLOGI DAN KEHIDUPAN LESTARI	10.0 Mesin	10.1 Penggunaan Alat dalam Kehidupan	10.1.5 Menjelaskan pemerhatian tentang penggunaan alat dalam kehidupan melalui lakaran, TMK, penulisan atau lisan secara kreatif.

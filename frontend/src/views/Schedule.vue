@@ -9,13 +9,16 @@ const schedules = ref([])
 const classes = ref([])
 const subjectsList = ref([])
 
-// Add schedule form
-const showAddModal = ref(false)
-const newSchedule = ref({
+// Modal state
+const showModal = ref(false)
+const isEditing = ref(false)
+const editingId = ref(null)
+const formData = ref({
   class_id: null,
   subject_id: null,
   day_of_week: 1,
   start_time: '08:00',
+  end_time: '09:00',
 })
 const saving = ref(false)
 
@@ -46,30 +49,61 @@ onMounted(async () => {
   }
 })
 
-async function handleAddSchedule() {
-  if (!newSchedule.value.class_id || !newSchedule.value.subject_id) {
+function openAddModal() {
+  isEditing.value = false
+  editingId.value = null
+  resetForm()
+  showModal.value = true
+}
+
+function openEditModal(schedule) {
+  isEditing.value = true
+  editingId.value = schedule.id
+  formData.value = {
+    class_id: schedule.class_id,
+    subject_id: schedule.subject_id,
+    day_of_week: schedule.day_of_week,
+    start_time: schedule.start_time,
+    end_time: schedule.end_time || '',
+  }
+  showModal.value = true
+}
+
+async function handleSubmit() {
+  if (!formData.value.class_id || !formData.value.subject_id) {
     alert('Sila pilih kelas dan subjek')
     return
   }
   
   saving.value = true
   try {
-    const created = await teacher.createSchedule(
-      newSchedule.value.class_id,
-      newSchedule.value.subject_id,
-      newSchedule.value.day_of_week,
-      newSchedule.value.start_time
-    )
-    schedules.value.push(created)
+    if (isEditing.value) {
+      // Update
+      const updated = await teacher.updateSchedule(editingId.value, formData.value)
+      const idx = schedules.value.findIndex(s => s.id === editingId.value)
+      if (idx !== -1) schedules.value[idx] = updated
+    } else {
+      // Create
+      const created = await teacher.createSchedule(
+        formData.value.class_id,
+        formData.value.subject_id,
+        formData.value.day_of_week,
+        formData.value.start_time,
+        formData.value.end_time || null
+      )
+      schedules.value.push(created)
+    }
+    
     // Sort by day and time
     schedules.value.sort((a, b) => {
       if (a.day_of_week !== b.day_of_week) return a.day_of_week - b.day_of_week
       return a.start_time.localeCompare(b.start_time)
     })
-    showAddModal.value = false
+    
+    showModal.value = false
     resetForm()
   } catch (e) {
-    alert(e.message || 'Gagal menambah jadual')
+    alert(e.message || 'Gagal menyimpan jadual')
   } finally {
     saving.value = false
   }
@@ -87,19 +121,26 @@ async function handleDelete(id) {
 }
 
 function resetForm() {
-  newSchedule.value = {
+  formData.value = {
     class_id: null,
     subject_id: null,
     day_of_week: 1,
     start_time: '08:00',
+    end_time: '09:00',
   }
+}
+
+function formatTimeRange(schedule) {
+  if (schedule.end_time) {
+    return `${schedule.start_time} - ${schedule.end_time}`
+  }
+  return schedule.start_time
 }
 
 function goBack() {
   router.push('/dashboard')
 }
 
-// Group schedules by day
 function getSchedulesByDay(day) {
   return schedules.value.filter(s => s.day_of_week === day)
 }
@@ -110,7 +151,7 @@ function getSchedulesByDay(day) {
     <header class="header">
       <button @click="goBack" class="btn btn-secondary">← Kembali</button>
       <h1>📅 Jadual Mengajar</h1>
-      <button @click="showAddModal = true" class="btn btn-primary">+ Tambah</button>
+      <button @click="openAddModal" class="btn btn-primary">+ Tambah</button>
     </header>
 
     <main class="container">
@@ -133,14 +174,15 @@ function getSchedulesByDay(day) {
                 v-for="schedule in getSchedulesByDay(day.value)" 
                 :key="schedule.id"
                 class="schedule-card"
+                @click="openEditModal(schedule)"
               >
-                <div class="schedule-time">{{ schedule.start_time }}</div>
+                <div class="schedule-time">{{ formatTimeRange(schedule) }}</div>
                 <div class="schedule-info">
                   <strong>{{ schedule.class_name }}</strong>
                   <span>{{ schedule.subject_name }}</span>
                 </div>
                 <button 
-                  @click="handleDelete(schedule.id)" 
+                  @click.stop="handleDelete(schedule.id)" 
                   class="delete-btn"
                   title="Padam"
                 >×</button>
@@ -156,34 +198,43 @@ function getSchedulesByDay(day) {
         <!-- Empty State -->
         <div v-if="!schedules.length" class="empty-state">
           <p>📅 Tiada jadual. Tambah jadual mengajar anda!</p>
-          <button @click="showAddModal = true" class="btn btn-primary">+ Tambah Jadual</button>
+          <button @click="openAddModal" class="btn btn-primary">+ Tambah Jadual</button>
         </div>
       </div>
 
-      <!-- Add Schedule Modal -->
-      <div v-if="showAddModal" class="modal-overlay" @click.self="showAddModal = false">
+      <!-- Add/Edit Schedule Modal -->
+      <div v-if="showModal" class="modal-overlay" @click.self="showModal = false">
         <div class="modal fade-in">
-          <h3>➕ Tambah Jadual</h3>
-          <form @submit.prevent="handleAddSchedule">
+          <h3>{{ isEditing ? '✏️ Edit Jadual' : '➕ Tambah Jadual' }}</h3>
+          <form @submit.prevent="handleSubmit">
             <div class="form-group">
               <label>Hari</label>
-              <select v-model="newSchedule.day_of_week" required>
+              <select v-model="formData.day_of_week" required>
                 <option v-for="day in dayNames" :key="day.value" :value="day.value">
                   {{ day.label }}
                 </option>
               </select>
             </div>
-            <div class="form-group">
-              <label>Masa Mula</label>
-              <input 
-                v-model="newSchedule.start_time" 
-                type="time" 
-                required 
-              />
+            <div class="form-row">
+              <div class="form-group">
+                <label>Masa Mula</label>
+                <input 
+                  v-model="formData.start_time" 
+                  type="time" 
+                  required 
+                />
+              </div>
+              <div class="form-group">
+                <label>Masa Akhir</label>
+                <input 
+                  v-model="formData.end_time" 
+                  type="time" 
+                />
+              </div>
             </div>
             <div class="form-group">
               <label>Kelas</label>
-              <select v-model="newSchedule.class_id" required>
+              <select v-model="formData.class_id" required>
                 <option :value="null" disabled>-- Pilih Kelas --</option>
                 <option v-for="cls in classes" :key="cls.id" :value="cls.id">
                   {{ cls.name }}
@@ -192,7 +243,7 @@ function getSchedulesByDay(day) {
             </div>
             <div class="form-group">
               <label>Subjek</label>
-              <select v-model="newSchedule.subject_id" required>
+              <select v-model="formData.subject_id" required>
                 <option :value="null" disabled>-- Pilih Subjek --</option>
                 <option v-for="subj in subjectsList" :key="subj.id" :value="subj.id">
                   {{ subj.name }}
@@ -200,7 +251,7 @@ function getSchedulesByDay(day) {
               </select>
             </div>
             <div class="modal-actions">
-              <button type="button" @click="showAddModal = false" class="btn btn-secondary">Batal</button>
+              <button type="button" @click="showModal = false" class="btn btn-secondary">Batal</button>
               <button type="submit" class="btn btn-primary" :disabled="saving">
                 {{ saving ? 'Menyimpan...' : 'Simpan' }}
               </button>
@@ -251,6 +302,12 @@ function getSchedulesByDay(day) {
   align-items: center;
   gap: 0.75rem;
   position: relative;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.schedule-card:hover {
+  background: var(--border);
 }
 
 .schedule-time {
@@ -341,6 +398,15 @@ function getSchedulesByDay(day) {
 }
 
 .modal-actions .btn {
+  flex: 1;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.form-row .form-group {
   flex: 1;
 }
 

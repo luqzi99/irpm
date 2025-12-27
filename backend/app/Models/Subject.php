@@ -12,10 +12,18 @@ class Subject extends Model
 
     protected $fillable = [
         'name',
+        'code',
         'level',
+        'education_level',
+        'year',
     ];
 
     // Relationships
+    public function sections(): HasMany
+    {
+        return $this->hasMany(Section::class);
+    }
+
     public function topics(): HasMany
     {
         return $this->hasMany(Topic::class);

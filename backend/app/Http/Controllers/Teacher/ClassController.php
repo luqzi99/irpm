@@ -42,13 +42,24 @@ class ClassController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
+        $user = $request->user();
+        
+        // Check subscription limit
+        if (!$user->canCreateClass()) {
+            $limits = $user->getPlanLimits();
+            return response()->json([
+                'message' => "Had kelas dicapai ({$limits['classes']} kelas). Sila naik taraf langganan.",
+                'subscription_limit' => true,
+            ], 403);
+        }
+
         $request->validate([
             'name' => 'required|string|max:100',
             'year' => 'required|integer|min:2020|max:2030',
         ]);
 
         $class = ClassRoom::create([
-            'teacher_id' => $request->user()->id,
+            'teacher_id' => $user->id,
             'name' => $request->name,
             'year' => $request->year,
         ]);
