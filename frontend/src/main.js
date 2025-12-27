@@ -4,6 +4,7 @@ import App from './App.vue'
 import './style.css'
 
 // Import views
+import Landing from './views/Landing.vue'
 import Login from './views/Login.vue'
 import Dashboard from './views/Dashboard.vue'
 import ClassDetail from './views/ClassDetail.vue'
@@ -27,7 +28,7 @@ import EmailVerificationRequired from './views/EmailVerificationRequired.vue'
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    { path: '/', redirect: '/login' },
+    { path: '/', name: 'Landing', component: Landing },
     { path: '/login', name: 'Login', component: Login },
     { path: '/verify-email', name: 'VerifyEmail', component: VerifyEmail },
     { path: '/reset-password', name: 'ResetPassword', component: ResetPassword },
